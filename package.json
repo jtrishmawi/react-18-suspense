@@ -32,11 +32,13 @@
     "emotion-normalize": "^11.0.1",
     "react": "0.0.0-3c2341416",
     "react-dom": "0.0.0-3c2341416",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
+    "@types/react-router-dom": "^5.1.7",
     "swagger-typescript-api": "^9.1.2",
     "typescript": "4.1.3"
   }

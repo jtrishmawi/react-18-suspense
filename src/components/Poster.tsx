@@ -10,5 +10,8 @@ interface Props {
 }
 
 export const Poster = ({ movie }: Props) => (
-  <Container>{movie.title ?? movie.name}</Container>
+  <Container>
+    <img alt={movie.title ?? movie.name} src={movie.poster_path!} />
+    {movie.title ?? movie.name}
+  </Container>
 );

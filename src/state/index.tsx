@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useMemo, useContext, useReducer } from "react";
 import Api from "../helpers/api";
 import { actions } from "./actions";
 import { reducer } from "./reducer";
@@ -19,13 +19,10 @@ const AppContext = createContext<{
 export const withData = (WrappedComponent: React.ComponentType<{}>) => {
   const AppContextProvider = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const dispatchedActions = actions(dispatch, new Api());
-
-    useEffect(() => {
-      dispatchedActions.movies.getNetflix();
-      dispatchedActions.movies.getTrending();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const dispatchedActions = actions(
+      dispatch,
+      useMemo(() => new Api(), [])
+    );
 
     return (
       <AppContext.Provider value={{ state, actions: dispatchedActions }}>

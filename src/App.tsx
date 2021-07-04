@@ -1,34 +1,20 @@
-import { useData, withData } from "./state";
+import { withData } from "./state";
 import { Main } from "./components/Main";
-import { PostersRow } from "./components/PostersRow";
-import { Poster } from "./components/Poster";
+import Home from "./pages/Home";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const {
-    state: {
-      movies: { netflix, trending },
-    },
-  } = useData();
-
   return (
     <Main>
-      <h1>Welcome home...</h1>
-      {netflix.length > 0 && (
-        <PostersRow>
-          <h2>Discover on Netflix</h2>
-          {netflix.map((movie) => (
-            <Poster key={movie.id} movie={movie} />
-          ))}
-        </PostersRow>
-      )}
-      {trending.length > 0 && (
-        <PostersRow>
-          <h2>Trending this week...</h2>
-          {trending.map((movie) => (
-            <Poster key={movie.id} movie={movie} />
-          ))}
-        </PostersRow>
-      )}
+      <Router>
+        <h1>Welcome home...</h1>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </Main>
   );
 }

@@ -4,12 +4,17 @@ import { Actions } from "./types";
 export const actions = (dispatch: React.Dispatch<Actions>, api: Api) => ({
   getNetflix: () =>
     (async () => {
-      const { data } = await api.discover.getDiscoverTv({
+      const {
+        data: { results },
+      } = await api.discover.getDiscoverTv({
         with_networks: "213",
       });
       dispatch({
         type: "GET_NETFLIX",
-        payload: data.results as TvListResultObject[],
+        payload: results?.map((m) => ({
+          ...m,
+          poster_path: api.getImagePathFor(m.poster_path),
+        })) as TvListResultObject[],
       });
     })(),
   getTrending: () =>
@@ -21,7 +26,10 @@ export const actions = (dispatch: React.Dispatch<Actions>, api: Api) => ({
       dispatch({
         type: "GET_TRENDING",
         // @ts-expect-error
-        payload: data.results as MovieListObject[],
+        payload: data.results.map((m) => ({
+          ...m,
+          poster_path: api.getImagePathFor(m.poster_path),
+        })) as MovieListObject[],
       });
     })(),
 });
