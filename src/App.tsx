@@ -3,6 +3,7 @@ import { Main } from "./components/Main";
 import Home from "./pages/Home";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Spinner } from "components/Spinner";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Home />
+          </Route>
+          <Route path="/admin" exact>
+            <Spinner />
           </Route>
         </Switch>
       </Router>
