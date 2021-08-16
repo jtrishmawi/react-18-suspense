@@ -7,23 +7,23 @@ import { v4 } from "uuid";
 
 const Poster = lazy(() => import("components/Poster"));
 
-const Trending = () => {
+const HorrorMovies = () => {
   const {
     state: {
-      movies: { trending },
+      movies: { horrorMovies },
     },
     actions: {
-      movies: { getTrending },
+      movies: { getHorrorMovies },
     },
   } = useData();
 
   useEffect(() => {
-    getTrending();
+    getHorrorMovies();
   }, []);
 
   return (
-    <PostersRow title="Trending movies">
-      {trending?.map((movie) => (
+    <PostersRow title="Horror movies">
+      {horrorMovies?.map((movie) => (
         <Suspense key={v4()} fallback={<Spinner />}>
           <Poster movie={movie} />
         </Suspense>
@@ -32,4 +32,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default HorrorMovies;

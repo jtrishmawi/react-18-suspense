@@ -1,31 +1,35 @@
+// import Poster from "components/Poster";
 import { PostersRow } from "components/PostersRow";
-import { Poster } from "components/Poster";
-import { useEffect } from "react";
+import { Spinner } from "components/Spinner";
+import { lazy, Suspense, useEffect } from "react";
 import { useData } from "state";
+import { v4 } from "uuid";
 
-export const Netflix = () => {
+const Poster = lazy(() => import("components/Poster"));
+
+const Netflix = () => {
   const {
     state: {
       movies: { netflix },
     },
-    actions: {
-      movies: { getNetflix },
+    $actions: {
+      movies: { $getNetflix },
     },
   } = useData();
 
   useEffect(() => {
-    getNetflix();
+    $getNetflix({ page: 1 });
   }, []);
 
   return (
-    (netflix.length > 0 && (
-      <PostersRow>
-        <h2>Discover on Netflix</h2>
-        {netflix.map((movie) => (
-          <Poster key={movie.id} movie={movie} />
-        ))}
-      </PostersRow>
-    )) ||
-    null
+    <PostersRow big title="Discover on Netflix">
+      {netflix?.map((movie) => (
+        <Suspense key={v4()} fallback={<Spinner />}>
+          <Poster movie={movie} />
+        </Suspense>
+      ))}
+    </PostersRow>
   );
 };
+
+export default Netflix;
