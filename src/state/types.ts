@@ -1,6 +1,7 @@
 import {
   Actions as MoviesActions,
   DispatchActions as MoviesDispatchActions,
+  DispatchEpics as MoviesDispatchEpics,
   Payload as MoviesPayload,
   State as MoviesState,
 } from "./movies/types";
@@ -24,6 +25,10 @@ export type Payload = MoviesPayload;
 
 export interface DispatchActions {
   movies: MoviesDispatchActions;
+}
+
+export interface DispatchEpics {
+  movies: MoviesDispatchEpics;
 }
 
 export type Actions = MoviesActions;

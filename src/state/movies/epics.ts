@@ -1,26 +1,31 @@
 import Api, { MovieListObject, TvListResultObject } from "../../helpers/api";
-import { Actions, DispatchActions } from "./types";
+import { Actions, DispatchEpics } from "./types";
+import * as rx from "rxjs";
 
-export const actions = (
+export const epics = (
   dispatch: React.Dispatch<Actions>,
   api: Api
-): DispatchActions => ({
-  getNetflix: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverTv({
+): DispatchEpics => ({
+  $getNetflix: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverTv({
+        language: "en",
+        page,
         with_networks: "213",
-      });
+        sort_by: "first_air_date.desc",
+      }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_NETFLIX",
+        type: "SET_NETFLIX",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path, "w342"),
         })) as TvListResultObject[],
       });
-    })(),
-  getTrending: () =>
+    });
+  },
+  $getTrending: () =>
     (async () => {
       const { data } = await api.trending.getTrendingMediaTypeTimeWindow(
         "movie",
@@ -35,7 +40,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getTopRated: () =>
+  $getTopRated: () =>
     (async () => {
       const {
         data: { results },
@@ -48,7 +53,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getActionMovies: () =>
+  $getActionMovies: () =>
     (async () => {
       const {
         data: { results },
@@ -61,7 +66,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getComedyMovies: () =>
+  $getComedyMovies: () =>
     (async () => {
       const {
         data: { results },
@@ -74,7 +79,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getHorrorMovies: () =>
+  $getHorrorMovies: () =>
     (async () => {
       const {
         data: { results },
@@ -87,7 +92,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getRomanceMovies: () =>
+  $getRomanceMovies: () =>
     (async () => {
       const {
         data: { results },
@@ -100,7 +105,7 @@ export const actions = (
         })) as MovieListObject[],
       });
     })(),
-  getDocumentaries: () =>
+  $getDocumentaries: () =>
     (async () => {
       const {
         data: { results },

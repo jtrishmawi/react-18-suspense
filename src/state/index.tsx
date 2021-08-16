@@ -1,31 +1,35 @@
 import { createContext, useMemo, useContext, useReducer } from "react";
 import Api from "../helpers/api";
 import { actions } from "./actions";
+import { epics } from "./epics";
 import { reducer } from "./reducer";
-import { DispatchActions, State } from "./types";
+import { DispatchActions, DispatchEpics, State } from "./types";
 
 const initialState = {
-  movies: {
-    netflix: [],
-    trending: [],
-  },
+  movies: {},
 } as State;
 
 const AppContext = createContext<{
   state: State;
   actions: DispatchActions;
-}>({ state: initialState, actions: {} as DispatchActions });
+  $actions: DispatchEpics;
+}>({
+  state: initialState,
+  actions: {} as DispatchActions,
+  $actions: {} as DispatchEpics,
+});
 
 export const withData = (WrappedComponent: React.ComponentType<{}>) => {
   const AppContextProvider = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const dispatchedActions = actions(
-      dispatch,
-      useMemo(() => new Api(), [])
-    );
+    const api = useMemo(() => new Api(), []);
+    const dispatchedActions = actions(dispatch, api);
+    const dispatchedEpics = epics(dispatch, api);
 
     return (
-      <AppContext.Provider value={{ state, actions: dispatchedActions }}>
+      <AppContext.Provider
+        value={{ state, actions: dispatchedActions, $actions: dispatchedEpics }}
+      >
         <WrappedComponent />
       </AppContext.Provider>
     );
