@@ -1,10 +1,11 @@
 {
-  "name": "react",
+  "name": "react-state-n-suspense",
   "version": "1.0.0",
-  "description": "React example starter project",
+  "description": "React state management and Suspense demo",
   "keywords": [
     "react",
-    "starter"
+    "suspense",
+    "state"
   ],
   "main": "src/index.tsx",
   "scripts": {
@@ -17,23 +18,21 @@
     "generate": "node ./scripts/buildDefinitions.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.0",
-    "@emotion/styled": "^11.3.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "emotion-normalize": "^11.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.2.0",
-    "rxjs": "^7.2.0"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.11.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@types/react-router-dom": "^5.1.7",
-    "@vitejs/plugin-react": "^4.2.0",
-    "swagger-typescript-api": "^9.1.2",
-    "typescript": "^5.4.0",
-    "gh-pages": "^6.1.1",
-    "vite": "^5.2.0"
+    "@emotion/babel-plugin": "^11.13.5",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "gh-pages": "^6.3.0",
+    "swagger-typescript-api": "^13.12.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.0"
   }
 }

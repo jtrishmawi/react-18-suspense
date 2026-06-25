@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-export class HomeErrorBoundary extends Component<{}, { hasError: boolean }> {
-  constructor(props: {} | Readonly<{}>) {
+export class HomeErrorBoundary extends Component<{ children?: React.ReactNode }, { hasError: boolean }> {
+  constructor(props: { children?: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
