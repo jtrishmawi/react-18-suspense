@@ -27,7 +27,7 @@ class Api extends ApiClient<ApiClientConfig> {
     super({
       baseApiParams: {
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
         },
       },
     });

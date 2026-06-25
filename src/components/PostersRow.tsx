@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { useHorizontalScroll } from "hooks/useHorizontalScroll";
 import { PropsWithChildren, useRef } from "react";
 

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { useCallback, useState } from "react";
 import { MovieListObject, TvListResultObject } from "../helpers/api";
 import SuspenseImage from "./SuspenseImage";

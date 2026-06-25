@@ -1,5 +1,5 @@
-import { css, Global } from "@emotion/react/macro";
-import styled from "@emotion/styled/macro";
+import { css, Global } from "@emotion/react";
+import styled from "@emotion/styled";
 import emotionNormalize from "emotion-normalize";
 import { PropsWithChildren } from "react";
 
