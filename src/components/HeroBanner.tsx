@@ -13,7 +13,7 @@ export const HeroBanner = ({ show, label = "Discover on Netflix" }: Props) => {
   return (
     <section
       aria-label={`${label}: ${title}`}
-      className="relative w-full h-[60vh] min-h-[360px] max-h-[640px] overflow-hidden bg-black"
+      className="relative w-full h-[60vh] min-h-[360px] max-h-[640px] overflow-hidden bg-neutral-100 dark:bg-black"
     >
       <div className="absolute inset-0">
         <img
@@ -26,34 +26,38 @@ export const HeroBanner = ({ show, label = "Discover on Netflix" }: Props) => {
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-r from-black from-40% via-black/80 to-transparent"
+        className="absolute inset-0 bg-linear-to-r from-neutral-100 from-40% via-neutral-100/80 to-transparent dark:from-black dark:via-black/80"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-t from-neutral-950 via-transparent to-transparent"
+        className="absolute inset-0 bg-linear-to-t from-neutral-100 via-transparent to-transparent dark:from-neutral-950"
       />
 
       <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 pt-20 pb-8 max-w-2xl">
-        <p className="text-sm font-bold text-red-500 uppercase tracking-widest mb-3">
+        <p className="text-sm font-bold text-red-700 dark:text-red-500 uppercase tracking-widest mb-3">
           {label}
         </p>
         <h2
-          className="text-3xl sm:text-5xl font-bold text-white leading-tight mb-3"
-          style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}
+          className="text-3xl sm:text-5xl font-bold text-neutral-900 dark:text-white leading-tight mb-3 hero-title-shadow"
         >
           {title}
         </h2>
         <div className="flex items-center gap-4 mb-4">
-          {year && <span className="text-neutral-300 text-sm">{year}</span>}
+          {year && (
+            <span className="text-neutral-600 dark:text-neutral-300 text-sm">
+              <span className="sr-only">Released </span>
+              {year}
+            </span>
+          )}
           {rating != null && (
-            <span className="text-emerald-400 text-sm font-semibold">
+            <span className="text-emerald-700 dark:text-emerald-400 text-sm font-semibold">
               <span aria-hidden="true">★ {rating.toFixed(1)}</span>
               <span className="sr-only">Rated {rating.toFixed(1)} out of 10</span>
             </span>
           )}
         </div>
         {show.overview && (
-          <p className="text-neutral-300 text-sm leading-relaxed line-clamp-3 max-w-lg">
+          <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed line-clamp-3 max-w-lg">
             {show.overview}
           </p>
         )}

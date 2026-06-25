@@ -19,6 +19,22 @@
   }
 }
 
+html {
+  background-color: #fafafa;
+}
+
+html.dark {
+  background-color: #0a0a0a;
+}
+
+.hero-title-shadow {
+  text-shadow: none;
+}
+
+html.dark .hero-title-shadow {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
 *,
 *::before,
 *::after {

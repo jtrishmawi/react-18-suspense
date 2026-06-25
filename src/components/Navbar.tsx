@@ -50,15 +50,15 @@ export const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/80 to-transparent">
       <h1 className="text-2xl font-bold tracking-tight select-none">
-        <span className="text-[#b91c1c] dark:text-[#e50914]">Cine</span>
-        <span className="text-neutral-800 dark:text-white">Scroll</span>
+        <span className="text-cinema-red">Cine</span>
+        <span className="text-white">Scroll</span>
       </h1>
       <button
         type="button"
         onClick={toggle}
         aria-pressed={isDark}
         aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-        className="p-2 rounded-full text-neutral-800 dark:text-white hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        className="p-2 rounded-full text-white hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
         {isDark ? <SunIcon /> : <MoonIcon />}
       </button>
