@@ -11,7 +11,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "generate": "node ./scripts/buildDefinitions.js",
-    "start": "react-scripts start",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
   "browserslist": [
@@ -45,6 +45,7 @@
     "@types/react-dom": "^17.0.8",
     "@types/react-router-dom": "^5.1.7",
     "@types/uuid": "^8.3.1",
+    "cross-env": "^10.1.0",
     "swagger-typescript-api": "^9.1.2",
     "typescript": "^4.3.5"
   }
