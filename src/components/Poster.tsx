@@ -4,9 +4,10 @@ import SuspenseImage from "./SuspenseImage";
 
 interface Props {
   movie: TvListResultObject & MovieListObject;
+  onSelect?: (movie: TvListResultObject & MovieListObject) => void;
 }
 
-const Poster = ({ movie }: Props) => {
+const Poster = ({ movie, onSelect }: Props) => {
   const title = movie.title ?? movie.name ?? "Unknown";
   const year = (movie.release_date ?? movie.first_air_date ?? "").slice(0, 4);
   const rating = movie.vote_average;
@@ -29,6 +30,7 @@ const Poster = ({ movie }: Props) => {
         type="button"
         className="relative w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm"
         aria-label={ariaLabel}
+        onClick={() => onSelect?.(movie)}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
         onFocus={() => setVisible(true)}

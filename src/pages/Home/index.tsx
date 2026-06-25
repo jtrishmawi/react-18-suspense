@@ -1,8 +1,9 @@
 import { HeroBanner } from "components/HeroBanner";
+import { MovieDetail } from "components/MovieDetail";
 import { PostersRow } from "components/PostersRow";
 import { Spinner } from "components/Spinner";
 import { MovieListObject, TvListResultObject } from "helpers/api";
-import { lazy, Suspense, useCallback, useEffect, useRef } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useData } from "state";
 
 const Poster = lazy(() => import("components/Poster"));
@@ -81,6 +82,8 @@ const Home = () => {
     }
   }, []);
 
+  const [selectedMovie, setSelectedMovie] = useState<AnyMovie | null>(null);
+
   const getMovies = (key: RowKey) =>
     (movies[key as keyof typeof movies] ?? []) as unknown as AnyMovie[];
 
@@ -90,7 +93,13 @@ const Home = () => {
 
   return (
     <>
-      {featured && <HeroBanner show={featured} label={firstRow.label} />}
+      {featured && (
+        <HeroBanner
+          show={featured}
+          label={firstRow.label}
+          onSelect={setSelectedMovie}
+        />
+      )}
       {firstRest.length > 0 && (
         <PostersRow
           big
@@ -100,7 +109,7 @@ const Home = () => {
         >
           {firstRest.map((movie, index) => (
             <Suspense key={`${movie.id}-${index}`} fallback={<Spinner />}>
-              <Poster movie={movie} />
+              <Poster movie={movie} onSelect={setSelectedMovie} />
             </Suspense>
           ))}
         </PostersRow>
@@ -117,12 +126,13 @@ const Home = () => {
           >
             {data.map((movie, index) => (
               <Suspense key={`${movie.id}-${index}`} fallback={<Spinner />}>
-                <Poster movie={movie} />
+                <Poster movie={movie} onSelect={setSelectedMovie} />
               </Suspense>
             ))}
           </PostersRow>
         );
       })}
+      <MovieDetail movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
     </>
   );
 };

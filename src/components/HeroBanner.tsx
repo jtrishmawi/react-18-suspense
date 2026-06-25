@@ -3,9 +3,10 @@ import { MovieListObject, TvListResultObject } from "helpers/api";
 interface Props {
   show: TvListResultObject & MovieListObject;
   label?: string;
+  onSelect?: (movie: TvListResultObject & MovieListObject) => void;
 }
 
-export const HeroBanner = ({ show, label = "Discover on Netflix" }: Props) => {
+export const HeroBanner = ({ show, label = "Discover on Netflix", onSelect }: Props) => {
   const title = show.title ?? show.name ?? "Featured";
   const year = (show.release_date ?? show.first_air_date ?? "").slice(0, 4);
   const rating = show.vote_average;
@@ -60,6 +61,15 @@ export const HeroBanner = ({ show, label = "Discover on Netflix" }: Props) => {
           <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed line-clamp-3 max-w-lg">
             {show.overview}
           </p>
+        )}
+        {onSelect && (
+          <button
+            type="button"
+            onClick={() => onSelect(show)}
+            className="mt-4 self-start px-5 py-2.5 bg-cinema-red hover:bg-cinema-red-light text-white text-sm font-semibold rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 dark:focus-visible:ring-offset-black"
+          >
+            View details
+          </button>
         )}
       </div>
     </section>
