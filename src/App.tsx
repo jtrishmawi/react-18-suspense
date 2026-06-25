@@ -1,9 +1,18 @@
+import { PropsWithChildren, Suspense } from "react";
 import { withData } from "./state";
 import { Main } from "./components/Main";
 import { Navbar } from "./components/Navbar";
+import { Spinner } from "./components/Spinner";
 import Home from "./pages/Home";
 import { useTheme } from "./hooks/useTheme";
 import { ThemeContext } from "./hooks/useThemeContext";
+import HomeErrorBoundary from "./errors/HomeErrorBoundary";
+import { configResource } from "helpers/api";
+
+function ConfigGate({ children }: PropsWithChildren) {
+  configResource.read();
+  return <>{children}</>;
+}
 
 function App() {
   const theme = useTheme();
@@ -18,7 +27,13 @@ function App() {
       </a>
       <Navbar />
       <Main>
-        <Home />
+        <HomeErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <ConfigGate>
+              <Home />
+            </ConfigGate>
+          </Suspense>
+        </HomeErrorBoundary>
       </Main>
     </ThemeContext.Provider>
   );

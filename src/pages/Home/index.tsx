@@ -1,7 +1,6 @@
 import { HeroBanner } from "components/HeroBanner";
 import { PostersRow } from "components/PostersRow";
 import { Spinner } from "components/Spinner";
-import HomeErrorBoundary from "errors/HomeErrorBoundary";
 import { MovieListObject, TvListResultObject } from "helpers/api";
 import { lazy, Suspense, useEffect } from "react";
 import { useData } from "state";
@@ -51,7 +50,7 @@ const Home = () => {
   const [featured, ...firstRest] = firstData;
 
   return (
-    <HomeErrorBoundary>
+    <>
       {featured && <HeroBanner show={featured} label={firstRow.label} />}
       {firstRest.length > 0 && (
         <PostersRow big title={firstRow.title}>
@@ -75,7 +74,7 @@ const Home = () => {
           </PostersRow>
         );
       })}
-    </HomeErrorBoundary>
+    </>
   );
 };
 

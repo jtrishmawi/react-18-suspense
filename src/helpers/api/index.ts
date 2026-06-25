@@ -4,6 +4,36 @@ import {
   ImagePath,
 } from "./__generated__/Api";
 
+function makeConfigResource() {
+  let status: "pending" | "success" | "error" = "pending";
+  let error: unknown;
+  let resolve!: () => void;
+  let reject!: (e: unknown) => void;
+
+  const promise = new Promise<void>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+
+  promise.then(
+    () => { status = "success"; },
+    (e: unknown) => { status = "error"; error = e; },
+  );
+
+  return {
+    settle(err?: unknown) {
+      if (err != null) reject(err);
+      else resolve();
+    },
+    read() {
+      if (status === "pending") throw promise;
+      if (status === "error") throw error;
+    },
+  };
+}
+
+export const configResource = makeConfigResource();
+
 interface ApiConfig {
   images?:
     | {
@@ -31,14 +61,19 @@ class Api extends ApiClient<ApiClientConfig> {
         },
       },
     });
-    this.getConfig();
+    this.loadConfig();
   }
 
   private _config!: ApiConfig;
 
-  private async getConfig() {
-    const { data } = await this.configuration.getConfiguration();
-    this._config = data;
+  private async loadConfig() {
+    try {
+      const { data } = await this.configuration.getConfiguration();
+      this._config = data;
+      configResource.settle();
+    } catch (e) {
+      configResource.settle(e);
+    }
   }
 
   public getImagePathFor(
