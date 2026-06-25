@@ -3,8 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>React App</title>
-    <script type="module" crossorigin src="/react-state-n-suspense/assets/index-D6xdccQu.js"></script>
+    <title>CineScroll - Browse Movies &amp; TV</title>
+    <script>
+      try {
+        const stored = localStorage.getItem("theme");
+        const isDark = stored ? stored === "dark" : true;
+        if (isDark) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/react-state-n-suspense/assets/index-rUg5twtu.js"></script>
+    <link rel="stylesheet" crossorigin href="/react-state-n-suspense/assets/index-CWYaag6m.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
