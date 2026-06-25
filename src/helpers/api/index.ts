@@ -54,14 +54,14 @@ class Api extends ApiClient<ApiClientConfig> {
   ): ImagePath {
     let resource = this.imgCache.get(path + "");
     if (resource) return resource;
-    let url = "";
     if (!this._config) {
-      url = path || this.fallbackUrl;
-    } else {
-      url = path
-        ? `${this._config.images?.secure_base_url}${size}${path}`
-        : this.fallbackUrl;
+      // Config hasn't loaded yet — return fallback without caching so the
+      // next call (after config resolves) can build the real URL.
+      return this.fallbackUrl;
     }
+    const url = path
+      ? `${this._config.images?.secure_base_url}${size}${path}`
+      : this.fallbackUrl;
     this.imgCache.set(path + "", url);
     return url;
   }

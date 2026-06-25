@@ -21,7 +21,10 @@ const Poster = ({ movie }: Props) => {
     .join(", ");
 
   return (
-    <article className="relative overflow-hidden rounded-sm w-full h-full">
+    <article
+      className="relative overflow-hidden rounded-sm w-full h-full animate-fade-in"
+      style={{ animationDelay: "calc(var(--i, 0) * 60ms)" }}
+    >
       <button
         type="button"
         className="relative w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm"

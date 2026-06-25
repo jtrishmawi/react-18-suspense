@@ -1,4 +1,4 @@
-import { Children, KeyboardEvent, PropsWithChildren, useId } from "react";
+import { Children, CSSProperties, KeyboardEvent, PropsWithChildren, useId } from "react";
 
 interface Props {
   big?: boolean;
@@ -38,8 +38,11 @@ export const PostersRow = ({
         onKeyDown={handleKeyDown}
       >
         <ul className={`flex gap-2 px-6 pb-4 ${big ? "min-h-[500px]" : "min-h-[280px]"}`}>
-          {Children.map(children, (child) => (
-            <li className={`flex-none ${big ? "w-[342px]" : "w-[185px]"}`}>
+          {Children.map(children, (child, index) => (
+            <li
+              className={`flex-none ${big ? "w-[342px]" : "w-[185px]"}`}
+              style={{ "--i": index } as CSSProperties}
+            >
               {child}
             </li>
           ))}
