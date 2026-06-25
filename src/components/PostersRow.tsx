@@ -1,64 +1,50 @@
-import styled from "@emotion/styled";
-import { PropsWithChildren } from "react";
+import { Children, KeyboardEvent, PropsWithChildren, useId } from "react";
 
 interface Props {
   big?: boolean;
   title: string;
 }
 
-const Container = styled.div`
-  position: relative;
-  display: grid;
-  grid-template-rows: 50px auto;
-  grid-template-columns: 1fr;
-
-  h2 {
-    grid-row: 1/2;
-    grid-column: 1/2;
-    display: block;
-    position: sticky;
-    z-index: 1;
-    top: 0;
-    background-color: rgba(51, 51, 51, 0.5);
-    margin: 0;
-    width: 100%;
-    line-height: 50px;
-    padding-left: 1rem;
-  }
-`;
-
-const Row = styled.div<Pick<Props, "big">>`
-  grid-row: 1/3;
-  grid-column: 1/2;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: ${(props) =>
-    props.big ? "minmax(342px, 1fr)" : "minmax(185px, 1fr)"};
-  min-height: ${(props) => (props.big ? "530px" : "300px")};
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 3px rgba(51, 51, 51, 0.5);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #ff7a18;
-  }
-`;
-
 export const PostersRow = ({
   title,
   big,
   children,
-}: PropsWithChildren<Props>) => (
-  <Container>
-    <h2>{title}</h2>
-    <Row big={big}>{children}</Row>
-  </Container>
-);
+}: PropsWithChildren<Props>) => {
+  const id = useId();
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      el.scrollBy({ left: 200, behavior: "smooth" });
+    }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      el.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section aria-labelledby={id} className="mb-8">
+      <h2
+        id={id}
+        className="px-6 py-3 text-lg font-bold text-neutral-900 dark:text-white sticky top-16 z-10 bg-neutral-50/80 dark:bg-neutral-950/80 backdrop-blur-sm"
+      >
+        {title}
+      </h2>
+      <div
+        className="overflow-x-auto"
+        tabIndex={-1}
+        onKeyDown={handleKeyDown}
+      >
+        <ul className={`flex gap-2 px-6 pb-4 ${big ? "min-h-[500px]" : "min-h-[280px]"}`}>
+          {Children.map(children, (child) => (
+            <li className={`flex-none ${big ? "w-[342px]" : "w-[185px]"}`}>
+              {child}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+};

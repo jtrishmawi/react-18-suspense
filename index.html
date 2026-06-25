@@ -3,7 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>React App</title>
+    <title>CineScroll - Browse Movies &amp; TV</title>
+    <script>
+      try {
+        const stored = localStorage.getItem("theme");
+        const isDark = stored ? stored === "dark" : true;
+        if (isDark) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

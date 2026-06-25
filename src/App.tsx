@@ -1,13 +1,26 @@
 import { withData } from "./state";
 import { Main } from "./components/Main";
+import { Navbar } from "./components/Navbar";
 import Home from "./pages/Home";
+import { useTheme } from "./hooks/useTheme";
+import { ThemeContext } from "./hooks/useThemeContext";
 
 function App() {
+  const theme = useTheme();
+
   return (
-    <Main>
-      <h1>Welcome home...</h1>
-      <Home />
-    </Main>
+    <ThemeContext.Provider value={theme}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded focus:font-bold focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+      <Navbar />
+      <Main>
+        <Home />
+      </Main>
+    </ThemeContext.Provider>
   );
 }
 

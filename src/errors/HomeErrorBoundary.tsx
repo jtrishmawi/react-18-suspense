@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 
-export class HomeErrorBoundary extends Component<{ children?: React.ReactNode }, { hasError: boolean }> {
+export class HomeErrorBoundary extends Component<
+  { children?: React.ReactNode },
+  { hasError: boolean }
+> {
   constructor(props: { children?: React.ReactNode }) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: unknown) {
-    // Update state so the next render will show the fallback UI.
+  static getDerivedStateFromError(_error: unknown) {
     return { hasError: true };
   }
 
   componentDidCatch(error: unknown, errorInfo: unknown) {
-    // You can also log the error to an error reporting service
     console.error(error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <p
+          role="alert"
+          className="p-8 text-center font-semibold text-red-700 dark:text-red-500"
+        >
+          Something went wrong. Please refresh the page.
+        </p>
+      );
     }
 
     return this.props.children;

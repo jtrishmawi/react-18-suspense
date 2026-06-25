@@ -1,16 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig(({ command }) => ({
   base: command === "build" ? "/react-state-n-suspense/" : "/",
-  plugins: [
-    react({
-      babel: {
-        plugins: ["@emotion/babel-plugin"],
-      },
-    }),
-  ],
+  plugins: [tailwindcss(), react()],
   resolve: {
     alias: {
       components: path.resolve(__dirname, "src/components"),

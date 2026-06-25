@@ -13,20 +13,17 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d dist",
     "generate": "node ./scripts/buildDefinitions.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "emotion-normalize": "^11.0.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.13.5",
+    "@tailwindcss/vite": "^4.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
