@@ -40,10 +40,15 @@ export type Payload = {
   ["GET_TRENDING"]: MovieListObject[];
   ["GET_TOP_RATED"]: MovieListObject[];
   ["GET_ACTION_MOVIES"]: MovieListObject[];
+  ["SET_ACTION_MOVIES"]: MovieListObject[];
   ["GET_COMEDY_MOVIES"]: MovieListObject[];
+  ["SET_COMEDY_MOVIES"]: MovieListObject[];
   ["GET_HORROR_MOVIES"]: MovieListObject[];
+  ["SET_HORROR_MOVIES"]: MovieListObject[];
   ["GET_ROMANCE_MOVIES"]: MovieListObject[];
+  ["SET_ROMANCE_MOVIES"]: MovieListObject[];
   ["GET_DOCUMENTARIES"]: MovieListObject[];
+  ["SET_DOCUMENTARIES"]: MovieListObject[];
 };
 
 /**

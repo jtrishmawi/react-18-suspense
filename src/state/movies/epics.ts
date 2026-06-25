@@ -66,7 +66,7 @@ export const epics = (
       rx.asapScheduler
     ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_ACTION_MOVIES",
+        type: "SET_ACTION_MOVIES",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
@@ -81,7 +81,7 @@ export const epics = (
       rx.asapScheduler
     ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_COMEDY_MOVIES",
+        type: "SET_COMEDY_MOVIES",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
@@ -96,7 +96,7 @@ export const epics = (
       rx.asapScheduler
     ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_HORROR_MOVIES",
+        type: "SET_HORROR_MOVIES",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
@@ -111,7 +111,7 @@ export const epics = (
       rx.asapScheduler
     ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_ROMANCE_MOVIES",
+        type: "SET_ROMANCE_MOVIES",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
@@ -126,7 +126,7 @@ export const epics = (
       rx.asapScheduler
     ).subscribe(({ data: { results } }) => {
       dispatch({
-        type: "GET_DOCUMENTARIES",
+        type: "SET_DOCUMENTARIES",
         payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
