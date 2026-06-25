@@ -27,7 +27,7 @@ class Api extends ApiClient<ApiClientConfig> {
     super({
       baseApiParams: {
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+          Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
         },
       },
     });
@@ -69,3 +69,4 @@ class Api extends ApiClient<ApiClientConfig> {
 
 export default Api;
 export * from "./__generated__/Api";
+
