@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { useHorizontalScroll } from "hooks/useHorizontalScroll";
-import { PropsWithChildren, useRef } from "react";
+import { PropsWithChildren } from "react";
 
 interface Props {
   big?: boolean;
@@ -39,10 +38,6 @@ const Row = styled.div<Pick<Props, "big">>`
   overflow-x: auto;
   overflow-y: hidden;
 
-  &.active {
-    cursor: grabbing;
-  }
-
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -61,16 +56,9 @@ export const PostersRow = ({
   title,
   big,
   children,
-}: PropsWithChildren<Props>) => {
-  const ref = useRef<HTMLDivElement>(null);
-  useHorizontalScroll(ref);
-
-  return (
-    <Container>
-      <h2>{title}</h2>
-      <Row big={big} ref={ref}>
-        {children}
-      </Row>
-    </Container>
-  );
-};
+}: PropsWithChildren<Props>) => (
+  <Container>
+    <h2>{title}</h2>
+    <Row big={big}>{children}</Row>
+  </Container>
+);

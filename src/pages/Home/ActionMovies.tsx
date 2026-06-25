@@ -3,8 +3,6 @@ import { PostersRow } from "components/PostersRow";
 import { Spinner } from "components/Spinner";
 import { lazy, Suspense, useEffect } from "react";
 import { useData } from "state";
-import { v4 } from "uuid";
-
 const Poster = lazy(() => import("components/Poster"));
 
 const ActionMovies = () => {
@@ -23,8 +21,8 @@ const ActionMovies = () => {
 
   return (
     <PostersRow title="Action movies">
-      {actionMovies?.map((movie) => (
-        <Suspense key={v4()} fallback={<Spinner />}>
+      {actionMovies?.map((movie, index) => (
+        <Suspense key={`${movie.id}-${index}`} fallback={<Spinner />}>
           <Poster movie={movie} />
         </Suspense>
       ))}

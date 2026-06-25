@@ -38,19 +38,11 @@ interface Props {
 const Poster = ({ movie }: Props) => {
   const [visible, setVisible] = useState(false);
 
-  const handleMouseOver = useCallback(() => {
-    setVisible((visible) => {
-      if (!visible) {
-        setTimeout(() => {
-          setVisible(false);
-        }, 1500);
-      }
-      return !visible;
-    });
-  }, []);
+  const handleMouseEnter = useCallback(() => setVisible(true), []);
+  const handleMouseLeave = useCallback(() => setVisible(false), []);
 
   return (
-    <Container onMouseOver={handleMouseOver}>
+    <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Img alt={movie.title ?? movie.name} src={movie.poster_path!} />
       <Body visible={visible}>
         <h3>{movie.title ?? movie.name}</h3>
