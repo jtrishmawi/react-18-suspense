@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/react-state-n-suspense/" : "/",
   plugins: [
     react({
       babel: {
@@ -21,4 +22,4 @@ export default defineConfig({
     },
   },
   server: { port: 3000 },
-});
+}));
