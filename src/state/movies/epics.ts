@@ -25,26 +25,31 @@ export const epics = (
       });
     });
   },
-  $getTrending: () =>
-    (async () => {
-      const { data } = await api.trending.getTrendingMediaTypeTimeWindow(
-        "movie",
-        "week"
-      );
+
+  // getTrendingMediaTypeTimeWindow's generated type has no page in its query
+  // object (generated as params: RequestParams which omits query). Page 1 only.
+  $getTrending: ({ page: _page = 1 }) => {
+    rx.scheduled(
+      api.trending.getTrendingMediaTypeTimeWindow("movie", "week"),
+      rx.asapScheduler
+    ).subscribe(({ data }) => {
+      const results = (data as unknown as { results: MovieListObject[] }).results;
       dispatch({
         type: "GET_TRENDING",
-        // @ts-expect-error
-        payload: data.results.map((m) => ({
+        payload: results?.map((m) => ({
           ...m,
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getTopRated: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.movie.getMovieTopRated();
+    });
+  },
+
+  // getMovieTopRated similarly has no typed query object for page.
+  $getTopRated: ({ page: _page = 1 }) => {
+    rx.scheduled(
+      api.movie.getMovieTopRated(),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_TOP_RATED",
         payload: results?.map((m) => ({
@@ -52,12 +57,14 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getActionMovies: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverMovie({ with_genres: "28" });
+    });
+  },
+
+  $getActionMovies: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverMovie({ with_genres: "28", page }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_ACTION_MOVIES",
         payload: results?.map((m) => ({
@@ -65,12 +72,14 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getComedyMovies: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverMovie({ with_genres: "35" });
+    });
+  },
+
+  $getComedyMovies: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverMovie({ with_genres: "35", page }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_COMEDY_MOVIES",
         payload: results?.map((m) => ({
@@ -78,12 +87,14 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getHorrorMovies: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverMovie({ with_genres: "27" });
+    });
+  },
+
+  $getHorrorMovies: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverMovie({ with_genres: "27", page }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_HORROR_MOVIES",
         payload: results?.map((m) => ({
@@ -91,12 +102,14 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getRomanceMovies: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverMovie({ with_genres: "10749" });
+    });
+  },
+
+  $getRomanceMovies: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverMovie({ with_genres: "10749", page }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_ROMANCE_MOVIES",
         payload: results?.map((m) => ({
@@ -104,12 +117,14 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
-  $getDocumentaries: () =>
-    (async () => {
-      const {
-        data: { results },
-      } = await api.discover.getDiscoverMovie({ with_genres: "99" });
+    });
+  },
+
+  $getDocumentaries: ({ page = 1 }) => {
+    rx.scheduled(
+      api.discover.getDiscoverMovie({ with_genres: "99", page }),
+      rx.asapScheduler
+    ).subscribe(({ data: { results } }) => {
       dispatch({
         type: "GET_DOCUMENTARIES",
         payload: results?.map((m) => ({
@@ -117,5 +132,6 @@ export const epics = (
           poster_path: api.getImagePathFor(m.poster_path),
         })) as MovieListObject[],
       });
-    })(),
+    });
+  },
 });

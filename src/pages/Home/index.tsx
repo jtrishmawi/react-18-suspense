@@ -27,19 +27,18 @@ type RowKey = (typeof ROWS)[number]["key"];
 const Home = () => {
   const {
     state: { movies },
-    actions: { movies: movieActions },
     $actions: { movies: $movieActions },
   } = useData();
 
   useEffect(() => {
     $movieActions.$getNetflix({ page: 1 });
-    movieActions.getTrending();
-    movieActions.getTopRated();
-    movieActions.getActionMovies();
-    movieActions.getComedyMovies();
-    movieActions.getHorrorMovies();
-    movieActions.getRomanceMovies();
-    movieActions.getDocumentaries();
+    $movieActions.$getTrending({ page: 1 });
+    $movieActions.$getTopRated({ page: 1 });
+    $movieActions.$getActionMovies({ page: 1 });
+    $movieActions.$getComedyMovies({ page: 1 });
+    $movieActions.$getHorrorMovies({ page: 1 });
+    $movieActions.$getRomanceMovies({ page: 1 });
+    $movieActions.$getDocumentaries({ page: 1 });
   }, []);
 
   const getMovies = (key: RowKey) =>

@@ -84,13 +84,13 @@ export interface DispatchActions {
  */
 export interface DispatchEpics {
   $getNetflix: ({ page }: { page: number }) => void;
-  $getTrending: () => void;
-  $getTopRated: () => void;
-  $getActionMovies: () => void;
-  $getComedyMovies: () => void;
-  $getHorrorMovies: () => void;
-  $getRomanceMovies: () => void;
-  $getDocumentaries: () => void;
+  $getTrending: ({ page }: { page: number }) => void;
+  $getTopRated: ({ page }: { page: number }) => void;
+  $getActionMovies: ({ page }: { page: number }) => void;
+  $getComedyMovies: ({ page }: { page: number }) => void;
+  $getHorrorMovies: ({ page }: { page: number }) => void;
+  $getRomanceMovies: ({ page }: { page: number }) => void;
+  $getDocumentaries: ({ page }: { page: number }) => void;
 }
 
 /**
